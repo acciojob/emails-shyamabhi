@@ -26,10 +26,12 @@ public class Gmail extends Email {
         // 1. Each mail in the inbox is distinct.
         // 2. The mails are received in non-decreasing order. This means that the date of a new mail is greater than equal to the dates of mails received already.
         if(Inbox.size() == inboxCapacity){
-            Trash.add(Inbox.get(0));
-            Inbox.remove(Inbox.get(0));
+            Triple<Date,String,String>old = Inbox.get(0);
+           Inbox.remove(0);
+           Trash.add(old);
         }
-        Inbox.add(Triple.of(date,sender,message));
+        Triple<Date,String,String>m = Triple.of(date,sender,message);
+        Inbox.add(m);
     }
 
     public void deleteMail(String message){
@@ -54,9 +56,8 @@ public class Gmail extends Email {
         // Else, return the message of the latest mail present in the inbox
         if(Inbox.size()==0){
             return null;
-        }else {
-            return Inbox.get(Inbox.size() - 1).getRight();
         }
+        return Inbox.get(Inbox.size() - 1).getRight();
     }
 
     public String findOldestMessage(){
@@ -64,10 +65,8 @@ public class Gmail extends Email {
         // Else, return the message of the oldest mail present in the inbox
         if(Inbox.size()==0){
             return null;
-        }else {
-            return Inbox.get(0).getRight();
         }
-
+        return Inbox.get(0).getRight();
     }
 
     public int findMailsBetweenDates(Date start, Date end){
