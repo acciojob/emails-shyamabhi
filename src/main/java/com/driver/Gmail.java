@@ -38,7 +38,7 @@ public class Gmail extends Email {
         int index=-1;
         for(int i=0;i<Inbox.size();i++){
            if(message.equals(Inbox.get(i).getRight())){
-               index=1;
+               index=i;
                break;
            }
         }
