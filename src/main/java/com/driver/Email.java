@@ -28,41 +28,44 @@ public class Email {
 
         if(oldPassword.equals(password)){
             if(isValid(newPassword)){
-            //System.out.println("Password changed successfully");
-            this.password = newPassword;
-            }else{
-                //System.out.println("not valid");
+                System.out.println("Password changed successfully!");
+                this.password = newPassword;
             }
-        }else{
-            //System.out.println("do not match");
+            else{
+                System.out.println("The new password is not valid!");
+            }
+        }
+        else{
+            System.out.println("The given password does not match current password!");
         }
     }
 
-    private boolean isValid(String password){
-        boolean cl = false;
-        boolean sl = false,digit = false,sc = false;
+    private Boolean isValid(String password){
+        Boolean capitalLetter = false;
+        Boolean smallLetter = false;
+        Boolean digit = false;
+        Boolean specialCharacter = false;
 
-        if(password.length()<8){
+        if(password.length() < 8){
             return false;
         }
-        for(char c : password.toCharArray()){
-            if(c>='A'&&c<='Z'){
-                cl = true;
-            }
-            if(c>='a'&&c<='z'){
-                sl = true;
-            }
-            if(c>='0'&&c<='9'){
-                digit=true;
-            }
-            else{
-                sc=true;
-            }
-        }
-        if(sl&&cl&&sc&&digit){
-            return true;
-        }
-        return false;
 
+        for(int i = 0; i<password.length(); i++){
+            char ch = password.charAt(i);
+            if((ch >= 'A') && (ch <= 'Z')){
+                capitalLetter = true;
+            }
+            else if((ch >= 'a') && (ch <= 'z')){
+                smallLetter = true;
+            }
+            else if((ch >= '0') && (ch <= '9')){
+                digit = true;
+            }
+            else specialCharacter = true;
+        }
+
+        if(capitalLetter && smallLetter && digit && specialCharacter)
+            return true;
+        return false;
     }
 }
